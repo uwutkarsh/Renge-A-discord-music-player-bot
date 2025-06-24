@@ -4,13 +4,17 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import io.github.cdimascio.dotenv.Dotenv;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    private  static final String Token ="";
+
     public static void main(String[] args) {
 //        String s = "fuck my ass ";
+        Dotenv dotenv =Dotenv.load();
+      final String Token =   dotenv.get("DISCORD_TOKEN");
+
         JDA jda = JDABuilder.createDefault(Token).build();
         try {
             jda.awaitReady();
@@ -37,10 +41,20 @@ public class Main {
         }
 
         public  void onMessageReceived(MessageReceivedEvent event){
-                if (event.getAuthor().isBot()){return;}
-                if (event.getMessage().getContentRaw().equals("!ping")){
-                    event.getChannel().sendMessage("Pong").queue();
+            String prefix1 = "renge";
+            String prefix2=  "ren";
+            String content = event.getMessage().getContentRaw(); //this returns me a string
+
+            //so if content  got renge in it go forward or dont
+            if (content.toLowerCase().startsWith(prefix1)){
+                String command =  "hello";//  content.toLowerCase().substring(5,content.length());
+                if (event.getMessage().getContentRaw().equals(command.toLowerCase())){ //passing a string
+                    event.getChannel().sendMessage("HELLOW MY :3").queue();
                 }
+
+            }
+                if (event.getAuthor().isBot()){return;}
+
 
 
 
