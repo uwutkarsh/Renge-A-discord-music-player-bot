@@ -59,6 +59,11 @@ public class MessageListner  extends ListenerAdapter {
         //we make a funntion
 
     }
+    public String passLink(String command){  //use it to pass it into the audio player manager to get the links
+        command.trim();//trim it //created a new string object too fucker
+
+    return command;
+    }
 
 
 }
