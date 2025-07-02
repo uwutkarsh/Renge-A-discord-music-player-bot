@@ -3,6 +3,7 @@
 /workspace.xml
 # Environment-dependent path to Maven home directory
 /mavenHomeManager.xml
+#environments
 .env
 #Gradle
 .gradle/
