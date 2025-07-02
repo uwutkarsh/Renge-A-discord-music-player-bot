@@ -23,7 +23,9 @@ public class MessageListner  extends ListenerAdapter {
         //this returns me a string
         if (event.isFromGuild()) {
             String content = event.getMessage().getContentRaw(); //get the message content
+            System.out.println(content);   //DEBUG
             StringBuilder contentBuilder = new StringBuilder(content.toLowerCase().trim()); //create a string builder to manipulate the content
+            System.out.println(contentBuilder);   //DEBUG
             boolean boolContentCheckFinal_1=contentBuilder.toString().startsWith(prefix_1); //boolean to check if prefix_1 is present
             boolean boolContentCheckFinal_2=contentBuilder.toString().startsWith(prefix_2); //boolean to check if prefix_2 is present
 
@@ -39,11 +41,13 @@ public class MessageListner  extends ListenerAdapter {
                   if (boolContentCheckFinal_1){
                       //do the renge thing
                       String command = content.substring(prefix_1.length()); //pass it to command parser while its free from prefix_1
+                      System.out.println(command); //DEBUG
                         commandParser(command,event); //call the command parser with the command and event
 
                   }else if(boolContentCheckFinal_2){
                       //do the ren thing
                       String command = content.substring(prefix_2.length()); //pass it to command parser while its free from prefix_2
+                      System.out.println(command); //DEBUG
                       commandParser(command,event);
 
                   }
@@ -84,30 +88,25 @@ public class MessageListner  extends ListenerAdapter {
          // commands = play/pause
        StringBuilder trimCommand= new StringBuilder(command.trim()); //trim it to remove any leading or trailing spaces
         //can i make switch case right here?
-        String[] playCommands = {"play","p","pl"};
-        String[]  pauseCommands= {"pause","pa","pau"};
+      String playCommand = "play";
+      String  pauseCommand= "pause";
         //logic for play
-        String commandInterpreter = trimCommand.toString().toLowerCase();
+        String commandInterpreter = trimCommand.toString().toLowerCase();  //this had the final command with the link
+        if (commandInterpreter.startsWith(playCommand)){
+            String link = command.substring(playCommand.length()).strip();
+            System.out.println(link);//get the link after the play command
+            event.getChannel().sendMessage(link).queue();
+            //now this one will get the link with it
+            //alright i dont know how to pass the link :P
 
-        for (String playCommand : playCommands) {
-                if (commandInterpreter.startsWith(playCommand)){
-                     // found the play command now forward it to passLink to process the link
-                    event.getChannel().sendMessage("HELLOW MY :3").queue();  //just for testing
-
-                }
-
+        return;
+        } else if (commandInterpreter.startsWith(pauseCommand)) {
+            event.getChannel().sendMessage("pausing pausing hehe").queue();
+            return;
         }
 
-        for (String pauseCommand : pauseCommands) {
-            if (commandInterpreter.startsWith(pauseCommand)){
-                // found the play command now forward it to passLink to process the link
-                event.getChannel().sendMessage("pausing pausing hehe").queue();  //just for testing
 
-            }
-
-        }
-
-            //now i have to parse the info
+        //now i have to parse the info
 
 
 
