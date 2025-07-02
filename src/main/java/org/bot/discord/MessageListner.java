@@ -48,6 +48,12 @@ public class MessageListner  extends ListenerAdapter {
                       //do the ren thing
                       String command = content.substring(prefix_2.length()); //pass it to command parser while its free from prefix_2
                       System.out.println(command); //DEBUG
+
+
+
+
+
+
                       commandParser(command,event);
 
                   }
