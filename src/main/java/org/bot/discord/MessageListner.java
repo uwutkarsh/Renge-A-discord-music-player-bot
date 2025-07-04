@@ -23,9 +23,8 @@ public class MessageListner  extends ListenerAdapter {
         //this returns me a string
         if (event.isFromGuild()) {
             String content = event.getMessage().getContentRaw(); //get the message content
-            System.out.println(content);   //DEBUG
-            StringBuilder contentBuilder = new StringBuilder(content.toLowerCase().trim()); //create a string builder to manipulate the content
-            System.out.println(contentBuilder);   //DEBUG
+           StringBuilder contentBuilder = new StringBuilder(content.toLowerCase().trim()); //create a string builder to manipulate the content
+
             boolean boolContentCheckFinal_1=contentBuilder.toString().startsWith(prefix_1); //boolean to check if prefix_1 is present
             boolean boolContentCheckFinal_2=contentBuilder.toString().startsWith(prefix_2); //boolean to check if prefix_2 is present
 
@@ -40,53 +39,25 @@ public class MessageListner  extends ListenerAdapter {
                     //extract the message and check for the prefix and pass it to command parser
                   if (boolContentCheckFinal_1){
                       //do the renge thing
-                      String command = content.substring(prefix_1.length()); //pass it to command parser while its free from prefix_1
+
+                      //I DID A CHANGE HERE
+                      String command = content.substring(prefix_1.length()).strip(); //pass it to command parser while its free from prefix_1
                       System.out.println(command); //DEBUG
                         commandParser(command,event); //call the command parser with the command and event
 
                   }else if(boolContentCheckFinal_2){
                       //do the ren thing
-                      String command = content.substring(prefix_2.length()); //pass it to command parser while its free from prefix_2
-                      System.out.println(command); //DEBUG
-
-
-
-
-
+                      String command = content.substring(prefix_2.length()).strip(); //pass it to command parser while its free from prefix_2
 
                       commandParser(command,event);
 
                   }
 
-
-
-
-
-
-
-//                    if (content.contains("hello")) {
-//                        event.getChannel().sendMessage("HELLOW MY :3").queue();
-//                    } else if (content.contains("play")) {
-//                        event.getChannel().sendMessage("Playing :3").queue();
-//                    }
-
                 }
-
-
-
-
-
-
-
 
             }
 
-
-
-
         }
-
-
 
     }
     public static  void commandParser(String command,MessageReceivedEvent event){
@@ -99,13 +70,13 @@ public class MessageListner  extends ListenerAdapter {
         //logic for play
         String commandInterpreter = trimCommand.toString().toLowerCase();  //this had the final command with the link
         if (commandInterpreter.startsWith(playCommand)){
-            String link = command.substring(playCommand.length()).strip();
-            System.out.println(link);//get the link after the play command
-            event.getChannel().sendMessage(link).queue();
+            String link = command.substring(playCommand.length()).strip(); //get the link after the play command
+               event.getChannel().sendMessage(link).queue();
+               passLink(link); // passed the link to this redundant method idk why i have this
             //now this one will get the link with it
             //alright i dont know how to pass the link :P
 
-        return;
+                         return;
         } else if (commandInterpreter.startsWith(pauseCommand)) {
             event.getChannel().sendMessage("pausing pausing hehe").queue();
             return;
@@ -122,10 +93,10 @@ public class MessageListner  extends ListenerAdapter {
 
 
     }
-    public String passLink(String command){  //use it to pass it into the audio player manager to get the links
-        command.trim();//trim it //created a new string object too fucker
+    public static String passLink(String link){  //use it to pass it into the audio player manager to get the links
 
-    return command;
+         return link ;  //this is a redundant method but this feels good to have more modularity in code -.- xD :D
+
     }
 
 
