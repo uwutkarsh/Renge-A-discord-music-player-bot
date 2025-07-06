@@ -4,8 +4,9 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.hooks.ListenerAdapter; 
 import net.dv8tion.jda.api.managers.AudioManager;
+import org.bot.player.AudioManagerMy;
 
 public class MessageListner  extends ListenerAdapter {
     @Override
@@ -42,7 +43,7 @@ public class MessageListner  extends ListenerAdapter {
 
                       //I DID A CHANGE HERE
                       String command = content.substring(prefix_1.length()).strip(); //pass it to command parser while its free from prefix_1
-                      System.out.println(command); //DEBUG
+                      
                         commandParser(command,event); //call the command parser with the command and event
 
                   }else if(boolContentCheckFinal_2){
@@ -72,7 +73,7 @@ public class MessageListner  extends ListenerAdapter {
         if (commandInterpreter.startsWith(playCommand)){
             String link = command.substring(playCommand.length()).strip(); //get the link after the play command
                event.getChannel().sendMessage(link).queue();
-               passLink(link); // passed the link to this redundant method idk why i have this
+            AudioManagerMy.doIt(link,event); // passed the link to this redundant method idk why i have this
             //now this one will get the link with it
             //alright i dont know how to pass the link :P
 
@@ -93,9 +94,9 @@ public class MessageListner  extends ListenerAdapter {
 
 
     }
-    public static String passLink(String link){  //use it to pass it into the audio player manager to get the links
-
-         return link ;  //this is a redundant method but this feels good to have more modularity in code -.- xD :D
+    public static void  passLink(String link,MessageReceivedEvent event){  //use it to pass it into the audio player manager to get the links
+       //this is the method that will handle the link and play the audio`
+            //this is a redundant method but this feels good to have more modularity in code -.- xD :D
 
     }
 
